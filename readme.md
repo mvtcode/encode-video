@@ -1,6 +1,7 @@
 # Encode video
-Encode lại các video nặng (quay video qua điện thoại, camera, flycam, camera hành trình) trong cả thư mục.
-Giảm dung lượng lưu trữ vẫn đảm bảo chất lượng. Tạm thời chưa hỗ trợ encode hardware (con case của mình cho đi mượn chưa về), nếu có yêu cầu sẽ update encode hardware sau.
+- Encode lại các video nặng (quay video qua điện thoại, camera, flycam, camera hành trình) trong cả thư mục.
+Giảm dung lượng lưu trữ vẫn đảm bảo chất lượng.
+- Có hỗ trợ encode hardware h264_omx(Raspberry Pi 2,3), h264_nvenc (NVIDIA Cuda)
 
 ## Requirements
 - [node 8.x](https://nodejs.org/en/)

@@ -16,9 +16,16 @@ const config = require('./config');
 const historyFile = './history.txt';
 const dirRoot = process.env.dir || '.';
 
-const encode = async (file, out, enc) => {
+const encode = async (file, out, ext, enc) => {
 	return new Promise(resolve => {
-		var work = spawn('ffmpeg',['-i',file,'-c:v','libx264','-r',enc.r,'-b:v',enc.bv,'-c:a','copy','-y',out]);
+		const tempFile = path.join(path.dirname(out), `${path.basename(out, ext)}_tmp${ext}`);
+		let params = ['-i',file,'-c:v', config.vcodec,'-r',enc.r,'-b:v',enc.bv,'-c:a','copy','-flags','+global_heade','-y',tempFile];
+		if(config.vcodec === 'h264_omx') {
+			params.unshift('-c:v', 'h264_mmal');
+		} else if(config.vcodec === 'h264_nvenc') {
+			params.unshift('-hwaccel', 'cuvid', '-c:v', 'h264_cuvid');
+		}
+		const work = spawn('ffmpeg',params);
 		work.stdout.on('data', (data) => {
 			console.log(colors.cyan('FFMPEG:'), `${data}`);
 		});
@@ -27,10 +34,13 @@ const encode = async (file, out, enc) => {
 		});
 		work.on('close', (code) => {
 			console.log(colors.cyan('FFMPEG:'), `exited with code ${code}`);
+			if(code === 0 && fs.existsSync(tempFile)) {
+				fs.renameSync(tempFile, out);
+			}
 			resolve(code);
 		});
 	});
-}
+};
 
 const readDir = async (dir) => {
 	console.log('read dir:', dir);
@@ -50,7 +60,7 @@ const readDir = async (dir) => {
 							return stream.codec_type === config.codec_type;
 						});
 						if(videoCode) {
-							const outFile = path.join(dir, path.basename(file) + config.output_suffix + ext);
+							const outFile = path.join(dir, path.basename(file, ext) + config.output_suffix + ext);
 							if(!fs.existsSync(outFile)) {
 								const size = `${videoCode.width}x${videoCode.height}`;
 								const enc_standard = config.encs[size];
@@ -60,8 +70,11 @@ const readDir = async (dir) => {
 											r: Math.min(eval(videoCode.r_frame_rate), config.max_rate),
 											bv: enc_standard.bit_rate
 										};
-										await encode(fullPath, outFile, enc);
+										const exit_code = await encode(fullPath, outFile, ext, enc);
 										fs.appendFileSync(historyFile, `${new Date().toLocaleString()} ${fullPath}`);
+										if(config.delete_source && exit_code === 0) {
+											fs.unlinkSync(fullPath);
+										}
 									}
 								}
 							}
@@ -71,6 +84,6 @@ const readDir = async (dir) => {
 			}
 		}
 	}
-}
+};
 
 readDir(dirRoot);
