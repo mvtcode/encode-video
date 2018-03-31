@@ -12,6 +12,7 @@ Giảm dung lượng lưu trữ vẫn đảm bảo chất lượng.
 - Install [ffmpeg](https://www.faqforge.com/linux/how-to-install-ffmpeg-on-ubuntu-14-04/) (ubuntu 14.04), 15.04, 16.04: `apt install -y ffmpeg`
 - clone code `git clone https://github.com/mvtcode/encode-video.git`
 - `cd encode-video`
+
 **config**
 - Edit file `config.js`
 - Edit `package.json` (nếu chạy dạng npm)
