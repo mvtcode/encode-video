@@ -1,6 +1,6 @@
 # Encode video
-Encode lại các video nặng trong cả thư mục.
-Giảm dung lượng lưu trữ vẫn đảm bảo chất lượng.
+Encode lại các video nặng (quay video qua điện thoại, camera, flycam, camera hành trình) trong cả thư mục.
+Giảm dung lượng lưu trữ vẫn đảm bảo chất lượng. Tạm thời chưa hỗ trợ encode hardware (con case của mình cho đi mượn chưa về), nếu có yêu cầu sẽ update encode hardware sau.
 
 ## Requirements
 - [node 8.x](https://nodejs.org/en/)
@@ -16,6 +16,7 @@ Giảm dung lượng lưu trữ vẫn đảm bảo chất lượng.
 **config**
 - Edit file `config.js`
 - Edit `package.json` (nếu chạy dạng npm)
+- Nếu đường dẫn có dấu cách thì fix lỗi theo https://github.com/xouabita/get-video-info/issues/1
 
 **Run**
 - `dir=/media/tanmv/Videos node app.js`
