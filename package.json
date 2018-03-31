@@ -1,0 +1,20 @@
+{
+  "name": "encode-video",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "colors": "^1.2.1",
+    "get-video-info": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "dir=/media/tanmv/Videos node app.js"
+  },
+  "engines": {
+    "node": ">= 8.11.1",
+    "npm": ">= 5.6.0"
+  },
+  "author": "tanmv",
+  "license": "ISC"
+}
