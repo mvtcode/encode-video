@@ -19,7 +19,7 @@ const dirRoot = process.env.dir || '.';
 const encode = async (file, out, ext, enc) => {
 	return new Promise(resolve => {
 		const tempFile = path.join(path.dirname(out), `${path.basename(out, ext)}_tmp${ext}`);
-		let params = ['-i',file,'-c:v', config.vcodec,'-r',enc.r,'-b:v',enc.bv,'-c:a','copy','-flags','+global_heade','-y',tempFile];
+		let params = ['-i',file,'-c:v', config.vcodec,'-r',enc.r,'-b:v',enc.bv,'-c:a','copy','-y',tempFile];
 		if(config.vcodec === 'h264_omx') {
 			params.unshift('-c:v', 'h264_mmal');
 		} else if(config.vcodec === 'h264_nvenc') {
