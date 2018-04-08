@@ -52,7 +52,8 @@ const readDir = async (dir) => {
 			if (stat.isDirectory()){
 				await readDir(fullPath);
 			} else if(stat.isFile()) {
-				const ext = path.extname(fullPath).toLowerCase();
+				const extOrigin = path.extname(fullPath);
+				const ext = extOrigin.toLowerCase();
 				if(config.ext.indexOf(ext) >= 0) {
 					const info = await getVideoInfo(fullPath);
 					if(info) {
@@ -60,7 +61,7 @@ const readDir = async (dir) => {
 							return stream.codec_type === config.codec_type;
 						});
 						if(videoCode) {
-							const outFile = path.join(dir, path.basename(file, ext) + config.output_suffix + ext);
+							const outFile = path.join(dir, path.basename(file, extOrigin) + config.output_suffix + ext);
 							if(!fs.existsSync(outFile)) {
 								const size = `${videoCode.width}x${videoCode.height}`;
 								const enc_standard = config.encs[size];
