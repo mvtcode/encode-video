@@ -3,7 +3,7 @@
 * Auth: tanmv
 * Fb: fb/mvt.hp.star
 * Updated: 2018-03-31 11:00
-* Run: dir="/media/tanmv/Videos" node app.js
+* Run: dir="/home/tanmv/Videos" node app.js
 */
 
 const fs = require('fs');
@@ -60,7 +60,7 @@ const readDir = async (dir) => {
 						const videoCode = info.streams.find(stream => {
 							return stream.codec_type === config.codec_type;
 						});
-						if(videoCode) {
+						if(videoCode && file.lastIndexOf(config.output_suffix + ext) < 0) {
 							const outFile = path.join(dir, path.basename(file, extOrigin) + config.output_suffix + ext);
 							if(!fs.existsSync(outFile)) {
 								const size = `${videoCode.width}x${videoCode.height}`;
