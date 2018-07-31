@@ -22,3 +22,11 @@ Giảm dung lượng lưu trữ vẫn đảm bảo chất lượng.
 **Run**
 - `dir=/media/tanmv/Videos node app.js`
 - Hoặc `npm start`
+
+## Author
+
+Email: [macvantan@gmail.com](mailto:macvantan@gmail.com)
+
+Fb: [fb/mvt.hp.star](https://www.facebook.com/mvt.hp.star)
+
+Skype: [trai_12a1](skype:trai_12a1?chat)
